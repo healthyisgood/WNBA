@@ -8,3 +8,4 @@ streamlit
 nltk
 textblob
 lxml
+html5lib
