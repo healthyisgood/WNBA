@@ -2,7 +2,7 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 
-def get_wnba_player_stats(year=2025,2024,2023):
+def get_wnba_player_stats(year=2024):
     url = f"https://www.basketball-reference.com/wnba/years/{year}.html"
     res = requests.get(url)
     soup = BeautifulSoup(res.text, 'html.parser')
@@ -16,8 +16,8 @@ def get_wnba_player_stats(year=2025,2024,2023):
     if len(tables) == 0:
         raise ValueError("No tables found in HTML. The structure may have changed.")
     
-    df = tables[0]
 
+    df = tables[0]
     df = df[df['Player'] != 'Player']
     df = df.fillna(0)
 
