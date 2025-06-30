@@ -3,14 +3,19 @@ import requests
 from bs4 import BeautifulSoup
 
 def get_wnba_player_stats(year=2024):
-    url = "https://www.basketball-reference.com/wnba/years/{year}.html"
+    url = f"https://www.basketball-reference.com/wnba/years/{year}.html"
     res = requests.get(url)
     soup = BeautifulSoup(res.text, 'html.parser')
 
     table = soup.find('table', {'id': 'per_game_stats'})
+    
+    if table is None:
+        raise ValueError("No table found on the page. The website structure may have changed.")
+
     tables = pd.read_html(str(table))
-if len(tables) == 0:
-    raise ValueError("No tables found on the page. The website structure may have changed.")
+    if len(tables) == 0:
+        raise ValueError("No tables found in HTML. The structure may have changed.")
+    
     df = tables[0]
 
     df = df[df['Player'] != 'Player']
@@ -26,4 +31,5 @@ if len(tables) == 0:
             'PTS', 'FGA', 'FTA', '3PA']
     df = df[[col for col in keep if col in df.columns]]
     df = df.rename(columns={'MP': 'MIN', 'TRB': 'REB', 'TOV': 'TO'})
+
     return df.reset_index(drop=True)
