@@ -2,7 +2,7 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 
-def get_wnba_player_stats(year=2024):
+def get_wnba_player_stats(year=2025,2024,2023):
     url = f"https://www.basketball-reference.com/wnba/years/{year}.html"
     res = requests.get(url)
     soup = BeautifulSoup(res.text, 'html.parser')
