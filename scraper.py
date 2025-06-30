@@ -38,4 +38,3 @@ def get_wnba_player_stats():
         print(f"✅ Loaded WNBA stats from {year}")
         return df.reset_index(drop=True)
 
-    raise ValueError("❌ Could not find valid WNBA stats for 2024, 2023, or 2022.")
