@@ -11,7 +11,7 @@ def get_wnba_player_stats(year=2024):
     tables = pd.read_html(str(table))
 if len(tables) == 0:
     raise ValueError("No tables found on the page. The website structure may have changed.")
-df = tables[0]
+    df = tables[0]
 
     df = df[df['Player'] != 'Player']
     df = df.fillna(0)
